@@ -1,0 +1,232 @@
+/*
+ * The Daily Pour — design tokens
+ * Source of truth for colour, type, radius, shadow and motion.
+ *
+ * Stack: Next.js 16 (App Router) + Tailwind CSS v4 (via @tailwindcss/turbopack).
+ * Usage: in app/globals.css, directly after `@import "tailwindcss";`
+ *
+ *   @import "../Docs/Design/tokens.css";
+ *
+ * Tailwind v4 turns every `--color-*`, `--font-*`, `--text-*`, `--radius-*`,
+ * `--shadow-*`, `--drop-shadow-*`, `--ease-*` and `--animate-*` below into utilities
+ * (bg-espresso, font-display, text-pour-xl, rounded-frame, drop-shadow-cup, animate-ribbon …).
+ *
+ * Fonts are loaded with next/font in app/layout.tsx and exposed as
+ * --font-bagel and --font-gabarito (see style-guide.md › Typography).
+ */
+
+/* ------------------------------------------------------------------ */
+/* 1. Brand palette — raw values. Prefer semantic tokens in components. */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Core six */
+  --color-espresso: #3e1a0d;      /* display type, primary buttons, body ink */
+  --color-milk: #faf3e6;          /* page background */
+  --color-foam: #fffbf4;          /* raised surfaces, fields */
+  --color-roastery: #143d2c;      /* brand green: ribbons, footer, frame */
+  --color-crema: #f4b81c;         /* highlight on green/espresso only */
+  --color-roast: #b0360f;         /* the order sticker; destructive states */
+
+  /* Supporting tones */
+  --color-latte: #d9c2a0;         /* decorative hairlines, tag outlines on milk */
+  --color-latte-deep: #a88660;    /* form control borders (3:1 on milk) */
+  --color-cocoa: #6e4a38;         /* secondary text (7:1 on milk) */
+  --color-roastery-ink: #1e5a41;  /* green text links on milk (7.3:1) */
+  --color-roastery-deep: #0d2a1e; /* ribbon underside / pressed green */
+  --color-crema-soft: #fbe3a0;    /* selected-chip fill, toast highlight */
+
+  /* Late shift (dark) tones */
+  --color-night: #1c0f09;
+  --color-night-raised: #2a170e;
+  --color-night-line: #4a2d1f;
+  --color-steam: #f5e9d6;         /* text on night (15.6:1) */
+  --color-steam-muted: #c4a88a;   /* secondary text on night (8.3:1) */
+
+  /* ---------------------------------------------------------------- */
+  /* 2. Type — Bringhurst's classic scale: 12 14 16 18 21 24 36 48 60 72 */
+  /* Names describe the role a size plays, not a t-shirt size.          */
+  /* ---------------------------------------------------------------- */
+  --text-fine: 0.75rem;           /* 12 — legal, allergen footnotes */
+  --text-fine--line-height: 1.5;
+  --text-small: 0.875rem;         /* 14 — meta, prices in lists, helper text */
+  --text-small--line-height: 1.5;
+  --text-body: 1rem;              /* 16 — UI copy, buttons, nav */
+  --text-body--line-height: 1.6;
+  --text-lede: 1.125rem;          /* 18 — intro paragraphs, drink descriptions */
+  --text-lede--line-height: 1.6;
+  --text-title: 1.3125rem;        /* 21 — card titles, drink names */
+  --text-title--line-height: 1.3;
+  --text-heading: 1.5rem;         /* 24 — sub-section headings */
+  --text-heading--line-height: 1.25;
+  --text-section: 2.25rem;        /* 36 — section headings (display face) */
+  --text-section--line-height: 1.05;
+  --text-feature: 3rem;           /* 48 — feature headings, mobile hero */
+  --text-feature--line-height: 1;
+  --text-pour: 3.75rem;           /* 60 */
+  --text-pour--line-height: 0.95;
+  --text-pour-xl: 4.5rem;         /* 72 */
+  --text-pour-xl--line-height: 0.92;
+  /* Hero only: fluid from 48px (phone) to 152px (desktop) */
+  --text-hero: clamp(3rem, 1.2rem + 9vw, 9.5rem);
+  --text-hero--line-height: 0.88;
+  --text-hero--letter-spacing: -0.02em;
+
+  /* ---------------------------------------------------------------- */
+  /* 3. Radius — a hierarchy, not one value for everything.            */
+  /* ---------------------------------------------------------------- */
+  --radius-field: 0.75rem;        /* inputs, steppers */
+  --radius-panel: 1.5rem;         /* drawers, toasts, menus */
+  --radius-frame: 2.25rem;        /* the page frame (outer container) */
+  /* Pills (buttons, tags) use Tailwind's rounded-full. Product plates are circles. */
+
+  /* ---------------------------------------------------------------- */
+  /* 4. Shadows — warm, used only on things that sit "above" the page. */
+  /* ---------------------------------------------------------------- */
+  --drop-shadow-cup: 0 22px 22px rgb(62 26 13 / 0.32);          /* product cut-outs: drop-shadow-cup */
+  --shadow-ribbon: 0 14px 18px -8px rgb(13 42 30 / 0.55);        /* pour ribbon */
+  --shadow-lift: 0 10px 24px -10px rgb(62 26 13 / 0.30);         /* toasts, menus */
+
+  /* ---------------------------------------------------------------- */
+  /* 5. Motion                                                         */
+  /* ---------------------------------------------------------------- */
+  --ease-pour: cubic-bezier(0.2, 0.8, 0.2, 1);     /* things settling into place */
+  --ease-swirl: cubic-bezier(0.65, 0, 0.35, 1);    /* things moving across */
+
+  --animate-ribbon: ribbon 38s linear infinite;
+  --animate-ribbon-reverse: ribbon 46s linear infinite reverse;
+  --animate-settle: settle 420ms var(--ease-pour) both;
+
+  @keyframes ribbon {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes settle {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 6. Semantic tokens — what components should reference.              */
+/*    Swapped wholesale for the "Late shift" dark theme.               */
+/* ------------------------------------------------------------------ */
+:root {
+  --surface-page: var(--color-milk);
+  --surface-raised: var(--color-foam);
+  --surface-brand: var(--color-roastery);
+  --surface-inverse: var(--color-espresso);
+  --ink: var(--color-espresso);
+  --ink-muted: var(--color-cocoa);
+  --ink-on-brand: var(--color-milk);
+  --ink-inverse: var(--color-foam);
+  --ink-link: var(--color-roastery-ink);
+  --line: var(--color-latte);
+  --line-strong: var(--color-latte-deep);
+  --highlight: var(--color-crema);
+  --highlight-soft: var(--color-crema-soft);
+  --hot: var(--color-roast);
+  --focus: var(--color-roastery);
+  --frame-gutter: var(--color-roastery);   /* colour around the page frame */
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface-page: var(--color-night);
+    --surface-raised: var(--color-night-raised);
+    --surface-brand: var(--color-roastery-deep);
+    --surface-inverse: var(--color-steam);
+    --ink: var(--color-steam);
+    --ink-muted: var(--color-steam-muted);
+    --ink-on-brand: var(--color-steam);
+    --ink-inverse: var(--color-espresso);
+    --ink-link: var(--color-crema);
+    --line: var(--color-night-line);
+    --line-strong: var(--color-steam-muted);
+    --highlight: var(--color-crema);
+    --highlight-soft: var(--color-night-line);
+    --hot: #e0582b;
+    --focus: var(--color-crema);
+    --frame-gutter: var(--color-roastery-deep);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --surface-page: var(--color-night);
+  --surface-raised: var(--color-night-raised);
+  --surface-brand: var(--color-roastery-deep);
+  --surface-inverse: var(--color-steam);
+  --ink: var(--color-steam);
+  --ink-muted: var(--color-steam-muted);
+  --ink-on-brand: var(--color-steam);
+  --ink-inverse: var(--color-espresso);
+  --ink-link: var(--color-crema);
+  --line: var(--color-night-line);
+  --line-strong: var(--color-steam-muted);
+  --highlight: var(--color-crema);
+  --highlight-soft: var(--color-night-line);
+  --hot: #e0582b;
+  --focus: var(--color-crema);
+  --frame-gutter: var(--color-roastery-deep);
+  color-scheme: dark;
+}
+
+/* Expose semantic tokens + next/font variables as Tailwind utilities.
+ * `inline` makes utilities reference the var directly, so theme swaps work. */
+@theme inline {
+  --color-page: var(--surface-page);
+  --color-raised: var(--surface-raised);
+  --color-brand: var(--surface-brand);
+  --color-inverse: var(--surface-inverse);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-on-brand: var(--ink-on-brand);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-ink-link: var(--ink-link);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-highlight: var(--highlight);
+  --color-highlight-soft: var(--highlight-soft);
+  --color-hot: var(--hot);
+  --color-focus: var(--focus);
+
+  --font-display: var(--font-bagel), "Arial Rounded MT Bold", system-ui, sans-serif;
+  --font-sans: var(--font-gabarito), ui-rounded, system-ui, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. Base layer                                                        */
+/* ------------------------------------------------------------------ */
+@layer base {
+  /* The body is the coloured gutter; <PageFrame> paints the milk page on top.
+   * See components.md › PageFrame. */
+  body {
+    background: var(--frame-gutter);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--highlight);
+    color: var(--color-espresso);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

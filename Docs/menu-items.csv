@@ -1,0 +1,27 @@
+id,slug,name,category,description,price_cents,dietary,allergens,caffeine,available,featured
+1,espresso,Espresso,Coffee,"A single shot of our house blend. Dark chocolate, toasted hazelnut, a long sweet finish.",240,vegan,,medium,true,false
+2,doppio,Doppio,Coffee,Two shots of house espresso in a small cup. The one regulars order before they've said hello.,280,vegan,,high,true,false
+3,cortado,Cortado,Coffee,Double espresso cut with an equal measure of warm milk. Small and strong.,320,vegetarian,milk,high,true,true
+4,caramel-cortado,Caramel cortado,Coffee,Our cortado with a spoon of house-made salted caramel stirred through.,340,vegetarian,milk,high,true,false
+5,flat-white,Flat white,Coffee,Double ristretto under a thin layer of velvety milk. More coffee than milk.,350,vegetarian,milk,high,true,true
+6,cappuccino,Cappuccino,Coffee,"Double espresso, steamed milk and a deep cap of foam. Cocoa dusting if you ask.",360,vegetarian,milk,high,true,false
+7,oat-latte,Oat latte,Coffee,Double espresso with steamed barista oat milk. No extra charge for the oat.,380,vegan,,high,true,true
+8,americano,Americano,Coffee,Double espresso topped with hot water. Ask for room if you take milk.,300,vegan,,high,true,false
+9,mocha,Mocha,Coffee,"Double espresso, 54% dark chocolate and steamed milk. Dessert in a mug.",400,vegetarian,milk;soya,high,true,false
+10,red-eye,Red eye,Coffee,A mug of filter coffee with a shot of espresso dropped in. For the early shift.,360,vegan,,very high,true,false
+11,todays-pour,Today's pour,Coffee,"Guatemalan filter, bright and a bit like red apple. Changes when the bag runs out.",330,vegan,,medium,true,true
+12,iced-latte,Iced latte,Coffee,Double espresso poured over ice and cold milk. Sweetened only if you ask.,390,vegetarian,milk,high,true,false
+13,cold-brew,Cold brew,Coffee,Steeped for 18 hours and served over ice. Smooth and low in acidity.,380,vegan,,very high,true,false
+14,english-breakfast,English breakfast tea,Tea,Loose-leaf Assam blend brewed in a pot for one. Milk on the side.,260,vegan,,medium,true,false
+15,chai-latte,Chai latte,Tea,"Black tea simmered with cardamom, ginger and cinnamon, then steamed with milk.",380,vegetarian,milk,medium,true,false
+16,matcha-latte,Matcha latte,Tea,Ceremonial-grade matcha whisked by hand and topped with steamed oat milk.,420,vegan,,medium,true,false
+17,hot-chocolate,Hot chocolate,Drinks,54% dark chocolate melted into steamed milk. Marshmallows on request.,380,vegetarian,milk;soya,low,true,false
+18,almond-croissant,Almond croissant,Bakery,Twice-baked butter croissant filled with frangipane and topped with flaked almonds.,360,vegetarian,gluten;milk;eggs;nuts,none,true,true
+19,cinnamon-bun,Cinnamon bun,Bakery,"Cardamom dough rolled with brown sugar and cinnamon, baked every morning at 6.",340,vegetarian,gluten;milk;eggs,none,false,false
+20,banana-bread,Banana bread,Bakery,A thick slice of our walnut banana bread. Good toasted with butter.,320,vegan,gluten;nuts,none,true,false
+21,cheese-scone,Cheese and chive scone,Bakery,Mature cheddar and chive scone served warm with salted butter.,300,vegetarian,gluten;milk;eggs,none,true,false
+22,grilled-cheese,Grilled cheese and tomato soup,Lunch,"Sharp cheddar and a little mustard on toasted sourdough, with a cup of roasted tomato soup for dunking.",1150,vegetarian,gluten;milk;mustard,none,true,true
+23,soup-of-the-day,Soup of the day,Lunch,"Whatever the kitchen made this morning, served with a thick slice of buttered sourdough. Ask at the counter.",850,vegetarian,gluten;milk;celery,none,true,false
+24,avocado-toast,Avocado toast,Lunch,"Smashed avocado on toasted sourdough with lemon, chilli flakes and a soft-boiled egg on the side.",1050,vegetarian,gluten;eggs,none,true,false
+25,grain-salad,Seasonal grain salad,Lunch,"Farro and quinoa with roasted squash, toasted cashews and a sharp lemon dressing. Changes with the market.",1100,vegan,nuts,none,true,false
+26,turkey-on-rye,Turkey and Swiss on rye,Lunch,"Roast turkey, Swiss cheese, pickles and grainy mustard on seeded rye. Pressed if you like it warm.",1200,,gluten;milk;mustard,none,true,false
