@@ -123,18 +123,18 @@ export function Hero() {
           <span className="block">properly.</span>
         </h1>
 
-        <div className="relative z-10 col-span-4 -mt-[0.6em] w-[min(84vw,22rem)] justify-self-center text-hero md:col-[4/9] md:-mt-[1.2em] md:w-full md:max-w-[26rem] md:justify-self-end lg:col-[5/10] lg:row-[1/3] lg:mt-[1.9em] lg:max-w-none lg:justify-self-center">
-          <div className="relative aspect-[530/700] w-full -rotate-3 overflow-hidden rounded-panel shadow-lift">
+        <div className="relative z-10 col-span-4 -mt-[0.6em] w-[min(84vw,22rem)] justify-self-center text-hero md:col-[4/9] md:-mt-[1.2em] md:w-full md:max-w-[26rem] md:justify-self-end lg:col-[6/11] lg:row-[1/3] lg:mt-[1.1em] lg:w-[130%] lg:max-w-none lg:justify-self-start">
+          <div className="relative aspect-[4/3] w-full drop-shadow-cup">
             <Image
               src={photos.hero.src}
               alt={photos.hero.alt}
               fill
               priority
-              sizes="(min-width: 1024px) 40vw, (min-width: 768px) 26rem, 84vw"
-              className="object-cover object-[50%_60%]"
+              sizes="(min-width: 1024px) 44vw, (min-width: 768px) 26rem, 84vw"
+              className="object-contain"
             />
           </div>
-          <ReserveSticker className="absolute bottom-[10%] -left-3 z-20 md:bottom-[14%] md:-left-12 lg:-left-6" />
+          <ReserveSticker className="absolute bottom-[10%] -left-3 z-20 md:bottom-[14%] md:-left-12 lg:bottom-[14%] lg:left-[14%]" />
         </div>
 
         <div className="col-span-4 mt-4 flex flex-col items-start gap-4 md:col-[1/4] md:row-start-2 md:mt-0 md:self-center lg:col-[1/5] lg:self-start lg:pt-24">

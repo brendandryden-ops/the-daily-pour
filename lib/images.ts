@@ -50,8 +50,11 @@ export const menuPhotos: Record<string, Photo> = {
 };
 
 export const photos = {
-  /** Framed in the hero, overlapping the headline; the splash needs to sit in the top half. */
-  hero: pexels("hero", 4281788, "Milky coffee splashing up out of a white mug"),
+  /** Framed in the hero, overlapping the headline. Our own design reference, not from Pexels. */
+  hero: {
+    src: "/images/hero-splash.webp",
+    alt: "Iced coffee splashing out of a glass with ice cubes and coffee beans flying",
+  },
   about: {
     room: pexels("about-room", 34094296, "A warm coffee shop interior with wooden shelves and a tall window"),
     counter: pexels("about-counter", 34153867, "A wooden coffee counter with shelves of cups behind it"),
