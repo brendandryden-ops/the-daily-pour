@@ -83,7 +83,7 @@ export function ReserveDialog({ prefill, onClose }: ReserveDialogProps) {
 
             {state.status === "error" ? (
               <p role="alert" className="text-small font-medium text-hot">
-                A couple of things need fixing before we can book your table.
+                {state.message ?? "A couple of things need fixing before we can book your table."}
               </p>
             ) : null}
 

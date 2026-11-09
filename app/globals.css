@@ -1,2 +1,49 @@
 @import "tailwindcss";
 @import "../Docs/Design/tokens.css";
+
+/* n8n chat widget (components/ChatWidget.tsx), themed with the brand tokens.
+   `html:root` outranks the widget's own `:root` defaults whatever the load order. */
+html:root {
+  --chat--font-family: var(--font-sans);
+  --chat--color--primary: var(--color-espresso);
+  --chat--color--primary-shade-50: #2e1309;
+  --chat--color--primary--shade-100: #1f0d06;
+  --chat--color--secondary: var(--color-roastery);
+  --chat--color-secondary-shade-50: var(--color-roastery-deep);
+  --chat--color-white: var(--color-foam);
+  --chat--color-light: var(--color-milk);
+  --chat--color-light-shade-50: var(--color-latte);
+  --chat--color-light-shade-100: var(--color-latte-deep);
+  --chat--color-medium: var(--color-latte);
+  --chat--color-dark: var(--color-espresso);
+  --chat--color-disabled: var(--color-latte-deep);
+  --chat--color-typing: var(--color-cocoa);
+
+  --chat--border-radius: var(--radius-field);
+  --chat--window--border-radius: var(--radius-panel);
+  --chat--window--border: 1px solid var(--color-latte);
+  --chat--window--width: min(400px, calc(100vw - 2rem));
+  --chat--window--height: min(600px, calc(100dvh - 7rem));
+  --chat--window--z-index: 60;
+
+  --chat--header--background: var(--color-roastery);
+  --chat--header--color: var(--color-milk);
+  --chat--heading--font-size: var(--text-heading);
+  --chat--message--font-size: var(--text-body);
+  --chat--message--bot--background: var(--color-foam);
+  --chat--message--bot--color: var(--color-espresso);
+  --chat--message--bot--border: 1px solid var(--color-latte);
+  --chat--message--user--background: var(--color-roastery);
+  --chat--message--user--color: var(--color-milk);
+
+  --chat--toggle--size: 60px;
+  --chat--toggle--background: var(--color-espresso);
+  --chat--toggle--hover--background: var(--color-roastery);
+  --chat--toggle--active--background: var(--color-roastery-deep);
+  --chat--toggle--color: var(--color-crema);
+}
+
+.daily-pour-chat .chat-header h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
