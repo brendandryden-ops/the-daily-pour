@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </PageFrame>
-          <ChatWidget />
+          <ChatWidget enabled={Boolean(process.env.N8N_CHAT_WEBHOOK_URL)} />
         </ReserveProvider>
       </body>
     </html>

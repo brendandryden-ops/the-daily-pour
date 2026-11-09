@@ -3,25 +3,23 @@
 import { useEffect } from "react";
 import "@n8n/chat/style.css";
 
-// Public on purpose: the browser calls the n8n Chat Trigger directly.
-// Lock it down with the trigger's "Allowed Origins (CORS)" setting.
-const WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL;
-
 /**
- * The n8n chat bubble, bottom-right on every page. Loads the (large) widget
- * only after the page is interactive, and renders nothing until a webhook
- * URL is configured.
+ * The n8n chat bubble, bottom-right on every page. Messages go to our own
+ * /api/chat route, which forwards them to n8n (no CORS, URL stays private).
+ * Loads the (large) widget only after the page is interactive, and renders
+ * nothing unless the server has a chat URL configured.
  */
-export function ChatWidget() {
+export function ChatWidget({ enabled }: { enabled: boolean }) {
   useEffect(() => {
-    if (!WEBHOOK_URL) return;
+    if (!enabled) return;
     let app: { unmount: () => void } | undefined;
     let cancelled = false;
 
     import("@n8n/chat").then(({ createChat }) => {
       if (cancelled) return;
       app = createChat({
-        webhookUrl: WEBHOOK_URL,
+        // Must be absolute: the widget parses it with `new URL()`.
+        webhookUrl: `${window.location.origin}/api/chat`,
         target: "#n8n-chat",
         mode: "window",
         showWelcomeScreen: false,
@@ -47,8 +45,8 @@ export function ChatWidget() {
       cancelled = true;
       app?.unmount();
     };
-  }, []);
+  }, [enabled]);
 
-  if (!WEBHOOK_URL) return null;
+  if (!enabled) return null;
   return <div id="n8n-chat" className="daily-pour-chat" />;
 }
