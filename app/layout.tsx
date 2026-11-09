@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bagel_Fat_One, Gabarito } from "next/font/google";
+import { ChatWidget } from "@/components/ChatWidget";
 import { PageFrame } from "@/components/PageFrame";
 import { ReserveProvider } from "@/components/ReserveProvider";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </PageFrame>
+          <ChatWidget enabled={Boolean(process.env.N8N_CHAT_WEBHOOK_URL)} />
         </ReserveProvider>
       </body>
     </html>

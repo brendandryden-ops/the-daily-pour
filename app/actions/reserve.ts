@@ -11,6 +11,7 @@ import {
   parseSlot,
   shopNow,
 } from "@/lib/hours";
+import { sendReservation } from "@/lib/n8n";
 
 export type ReserveField = "name" | "partySize" | "date" | "time";
 
@@ -22,8 +23,8 @@ export type ReserveState = {
 };
 
 /**
- * Checks a table reservation. Nothing is stored or sent yet: a valid booking
- * just comes back confirmed. Wire it to email or a database here when ready.
+ * Checks a table reservation, then hands a valid booking to n8n (see
+ * lib/n8n.ts). It is only confirmed once n8n accepts it.
  */
 export async function reserveTable(_prev: ReserveState, formData: FormData): Promise<ReserveState> {
   const values = {
@@ -63,6 +64,16 @@ export async function reserveTable(_prev: ReserveState, formData: FormData): Pro
 
   if (Object.keys(errors).length > 0) {
     return { status: "error", values, errors };
+  }
+
+  const sent = await sendReservation({ name: values.name, partySize: party, date: values.date, minutes: minutes! });
+  if (!sent) {
+    return {
+      status: "error",
+      values,
+      errors: {},
+      message: "We couldn't save your booking just now. Please try again, or call the shop.",
+    };
   }
 
   const firstName = values.name.split(/\s+/)[0];
