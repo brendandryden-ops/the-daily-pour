@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { reserveTable, type ReserveState } from "@/app/actions/reserve";
 import type { ReservePrefill } from "@/components/ReserveProvider";
 import { BeanGlyph } from "@/components/ui/BeanGlyph";
 import { Button } from "@/components/ui/Button";
@@ -15,6 +14,36 @@ import {
   shopNow,
   slotValue,
 } from "@/lib/hours";
+import type { ReserveState, ReserveValues } from "@/lib/reservation";
+
+/** Sends the form to app/api/reservations/route.ts, which calls n8n server-side. */
+async function reserveTable(_prev: ReserveState, formData: FormData): Promise<ReserveState> {
+  const values: ReserveValues = {
+    name: String(formData.get("name") ?? ""),
+    partySize: String(formData.get("partySize") ?? ""),
+    date: String(formData.get("date") ?? ""),
+    time: String(formData.get("time") ?? ""),
+  };
+  try {
+    const res = await fetch("/api/reservations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const data = (await res.json()) as Partial<ReserveState>;
+    if (data.status === "success" || data.status === "error") {
+      return { status: data.status, values, errors: data.errors ?? {}, message: data.message };
+    }
+  } catch {
+    // Network error or a non-JSON reply; fall through to the generic message.
+  }
+  return {
+    status: "error",
+    values,
+    errors: {},
+    message: "We couldn't save your booking just now. Please try again, or call the shop.",
+  };
+}
 
 type ReserveDialogProps = {
   prefill: ReservePrefill;
