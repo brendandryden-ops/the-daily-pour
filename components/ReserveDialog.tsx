@@ -59,8 +59,20 @@ export function ReserveDialog({ prefill, onClose }: ReserveDialogProps) {
     errors: {},
   };
   const [state, formAction, pending] = useActionState(reserveTable, initialState);
+  // Party size, date and time are controlled so React restores them after the
+  // form action resets the form; uncontrolled <select>s lose the choice.
+  const [partySize, setPartySize] = useState(initialState.values.partySize);
   const [date, setDate] = useState(initialState.values.date);
+  const [time, setTime] = useState(() =>
+    openSlots(initialState.values.date).includes(initialState.values.time) ? initialState.values.time : "",
+  );
   const slots = bookingSlots(date);
+
+  function changeDate(next: string) {
+    setDate(next);
+    // Drop a time the new day doesn't offer (e.g. 4pm on a Sunday).
+    if (!openSlots(next).includes(time)) setTime("");
+  }
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -130,7 +142,8 @@ export function ReserveDialog({ prefill, onClose }: ReserveDialogProps) {
               id="reserve-party"
               name="partySize"
               label="Party size"
-              defaultValue={values.partySize}
+              value={partySize}
+              onChange={(event) => setPartySize(event.target.value)}
               error={errors.partySize}
               helper={`For more than ${MAX_PARTY}, call the shop.`}
             >
@@ -150,17 +163,16 @@ export function ReserveDialog({ prefill, onClose }: ReserveDialogProps) {
                 min={today}
                 max={addDays(today, BOOKING_WINDOW_DAYS)}
                 value={date}
-                onChange={(event) => setDate(event.target.value)}
+                onChange={(event) => changeDate(event.target.value)}
                 error={errors.date}
                 required
               />
               <SelectField
-                // Remount when the day's slots change so the default re-applies.
-                key={slots.join()}
                 id="reserve-time"
                 name="time"
                 label="Time"
-                defaultValue={slots.map(slotValue).includes(values.time) ? values.time : ""}
+                value={time}
+                onChange={(event) => setTime(event.target.value)}
                 error={errors.time}
                 required
               >
@@ -192,6 +204,11 @@ export function ReserveDialog({ prefill, onClose }: ReserveDialogProps) {
       </div>
     </dialog>
   );
+}
+
+/** The day's bookable times as "HH:MM" values. */
+function openSlots(isoDate: string) {
+  return bookingSlots(isoDate).map(slotValue);
 }
 
 function CloseIcon() {

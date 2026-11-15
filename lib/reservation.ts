@@ -59,8 +59,12 @@ export function validateReservation(
     errors.time = "Pick a time.";
   } else if (!errors.date) {
     const slots = bookingSlots(values.date);
-    if (!slots.includes(minutes)) {
-      errors.time = `Pick a time between ${formatTime(slots[0])} and ${formatTime(slots.at(-1)!)}.`;
+    const first = slots[0];
+    const last = slots.at(-1)!;
+    if (minutes < first || minutes > last) {
+      errors.time = `Pick a time between ${formatTime(first)} and ${formatTime(last)}.`;
+    } else if (!slots.includes(minutes)) {
+      errors.time = "Bookings start on the hour or half hour.";
     } else if (values.date === now.date && minutes <= now.minutes) {
       errors.time = "That time has passed. Pick a later one.";
     }
