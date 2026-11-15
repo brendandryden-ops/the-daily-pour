@@ -299,9 +299,9 @@ mobile: headline → photo (full width, -mt-10 under headline) → lede → butt
 - **Title:** "Reserve a table" in `text-heading font-bold` (it's under 36px, so not the display face).
 - **Fields** ([TextField and SelectField](#textfield-and-searchfield)): Name; Party size (select 1–8, helper "For more than 8, call the shop."); Date (`type="date"`, today to 60 days ahead); Time (select of 30-minute slots for the chosen day, from opening until an hour before close).
 - **Submit:** a primary `lg` Button, "Reserve a table". While pending it reads "Reserving…" with `aria-busy`.
-- **Validation:** a Server Action (`app/actions/reserve.ts`) checks every field against `lib/hours.ts`, which the form also uses for its slots. Errors show per field, and a one-line `role="alert"` summary sits above the form.
+- **Validation:** the form posts to a route handler (`app/api/reservations/route.ts`), which checks every field with `lib/reservation.ts` against `lib/hours.ts`, the same source the form uses for its slots. Errors show per field, and a one-line `role="alert"` summary sits above the form.
 - **Success:** the form is replaced by a `role="status"` confirmation using the same verb: "Table reserved for 4, Saturday, November 7 at 10am. See you then, Maya." Below it is a primary "Done" button.
-- Nothing is stored or sent yet. The action is where email or a database would plug in.
+- A valid booking goes server-side to the n8n reservation webhook (`lib/n8n.ts`). It is only confirmed once n8n accepts it.
 
 ---
 
